@@ -30,6 +30,7 @@ public class BeerServiceImpl {
     private HmoAppMessageLoader hmoAppMessageLoader;
 
     public BeerDto createBeer(BeerDto beerDto) {
+        log.info("Creating beer... ");
         beerRepository.findByName(beerDto.getName()).ifPresent(
                 beer -> {
                     throw BadRequestException.builder()
