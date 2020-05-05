@@ -2,7 +2,6 @@ package hmo.crud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.NestedExceptionUtils;
 
 @SpringBootApplication
 public class HmoCrudApplication {

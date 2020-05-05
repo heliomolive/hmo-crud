@@ -5,13 +5,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @ApiModel(description = "Get beer response")
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
+@AllArgsConstructor
 public class GetBeerResponse extends HmoResponse {
 
     @ApiModelProperty("Beer unique ID")

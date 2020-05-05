@@ -8,8 +8,10 @@ import hmo.crud.domain.dto.BeerDto;
 import hmo.crud.repository.entity.Beer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE) //ignore unmapped properties on compilation report
 public interface BeerMapper {
 
     BeerDto getBeerDto(Beer beer);

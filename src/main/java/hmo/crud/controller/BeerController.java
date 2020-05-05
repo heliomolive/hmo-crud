@@ -12,6 +12,7 @@ import hmo.crud.domain.mapper.BeerMapper;
 import hmo.crud.service.BeerServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import static hmo.crud.UserMessage.BEER_NOT_FOUND;
 import static java.lang.String.format;
 
 @Api(produces = "application/json;charset=UTF-8")
+@Setter
 @RestController
 @RequestMapping(produces = "application/json;charset=UTF-8")
 public class BeerController {

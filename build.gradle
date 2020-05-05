@@ -58,9 +58,12 @@ dependencies {
 	implementation "io.springfox:springfox-swagger-ui:${springFoxVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}", "org.mapstruct:mapstruct:${mapStructVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}", "org.mapstruct:mapstruct-processor:${mapStructVersion}"
+
+	// spring-boot-starter-test already include JUnit5, Mockito and AssertJ
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
 	runtimeOnly 'com.h2database:h2'
 }
 

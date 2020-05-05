@@ -2,13 +2,17 @@ package hmo.crud.controller.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @ApiModel("Error Response")
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
+@AllArgsConstructor
 public class HmoErrorResponse extends HmoResponse {
 
     @ApiModelProperty("Developer message, provided for development support")

@@ -18,7 +18,7 @@ public class HmoAppMessageLoader {
     @Value("${"+BEER_NOT_FOUND_KEY+"}")
     private String beerNotFoundMessage;
 
-    @Value("{"+BEER_ALREADY_EXISTS_KEY+"}")
+    @Value("${"+BEER_ALREADY_EXISTS_KEY+"}")
     private String beerAlreadyExistsMessage;
 
     private Map<UserMessage, String> userMessage;

@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @ApiModel(description = "Create beer request")
 @Data
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CreateBeerRequest {
 
-    @NotNull
+    @NotEmpty(message = "Required parameter: beerName")
     @ApiModelProperty("Beer name")
     private String beerName;
 }

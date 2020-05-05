@@ -8,6 +8,7 @@ import hmo.crud.domain.mapper.BeerMapper;
 import hmo.crud.repository.BeerRepository;
 import hmo.crud.repository.entity.Beer;
 
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import static java.lang.String.format;
 
 @Log4j2
+@Setter
 @Service
 public class BeerServiceImpl {
 
@@ -34,7 +36,7 @@ public class BeerServiceImpl {
         beerRepository.findByName(beerDto.getName()).ifPresent(
                 beer -> {
                     throw BadRequestException.builder()
-                            .developerMessage(format("Beer [{%s}] already registered.", beerDto.getName()))
+                            .developerMessage(format("Beer [%s] already registered.", beerDto.getName()))
                             .userMessage(format(
                                     hmoAppMessageLoader.getUserMessage(UserMessage.BEER_ALREADY_EXISTS),
                                     beerDto.getName()))

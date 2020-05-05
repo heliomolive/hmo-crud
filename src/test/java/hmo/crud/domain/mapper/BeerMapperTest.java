@@ -1,9 +1,7 @@
-package hmo.example.validation.mapper;
+package hmo.crud.domain.mapper;
 
 import hmo.crud.domain.dto.BeerDto;
-import hmo.crud.domain.mapper.BeerMapper;
-import hmo.crud.domain.mapper.BeerMapperImpl;
-import hmo.example.validation.mother.BeerMother;
+import hmo.crud.mother.BeerMother;
 import hmo.crud.repository.entity.Beer;
 import org.junit.jupiter.api.Test;
 
