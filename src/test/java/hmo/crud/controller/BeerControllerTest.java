@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class BeerControllerTest extends HmoAbstractControllerTest {
+public class BeerControllerTest extends AbstractControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -60,7 +60,7 @@ public class BeerControllerTest extends HmoAbstractControllerTest {
         when(beerService.createBeer(any(BeerDto.class))).thenReturn(beerDto);
 
         mockMvc.perform(post(CREATE_BEER_V1_URI)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.beerUid").value(beerDto.getBeerUid()))
@@ -75,7 +75,7 @@ public class BeerControllerTest extends HmoAbstractControllerTest {
         CreateBeerRequest request = new CreateBeerRequest();
 
         mockMvc.perform(post(CREATE_BEER_V1_URI)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.developerMessage").value("Required parameter: beerName"));

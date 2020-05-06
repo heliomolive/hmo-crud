@@ -1,19 +1,16 @@
-package hmo.crud.config;
+package hmo.crud.controller;
 
 import hmo.crud.domain.mapper.BeerMapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@PropertySources({
-        @PropertySource(value = "classpath:/application.properties", encoding = "UTF-8")
-})
-public class HmoTestConfig {
+public class ControllerTestConfig {
 
     @Bean
+    @ConditionalOnMissingBean
     public BeerMapper getBeerMapper() {
         return Mappers.getMapper(BeerMapper.class);
     }

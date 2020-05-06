@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,6 +72,19 @@ public class BeerController {
                                 .developerMessage(format("Beer [%d] not found", beerUid))
                                 .userMessage(hmoAppMessageLoader.getUserMessage(BEER_NOT_FOUND))
                                 .build() );
+        GetBeerResponse response = beerMapper.getGetBeerResponse(beerDto);
+        return  response;
+    }
+
+    @ApiOperation("Find a beer by its ID")
+    @GetMapping(V1 + "/beer")
+    @ResponseStatus(HttpStatus.OK)
+    public GetBeerResponse getBeerByName(@RequestParam String beerName) {
+        BeerDto beerDto = beerService.getBeerByName(beerName).orElseThrow(() ->
+                NotFoundException.builder()
+                        .developerMessage(format("Beer [%d] not found", beerName))
+                        .userMessage(hmoAppMessageLoader.getUserMessage(BEER_NOT_FOUND))
+                        .build() );
         GetBeerResponse response = beerMapper.getGetBeerResponse(beerDto);
         return  response;
     }

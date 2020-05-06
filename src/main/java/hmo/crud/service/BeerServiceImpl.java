@@ -32,7 +32,6 @@ public class BeerServiceImpl {
     private HmoAppMessageLoader hmoAppMessageLoader;
 
     public BeerDto createBeer(BeerDto beerDto) {
-        log.info("Creating beer... ");
         beerRepository.findByName(beerDto.getName()).ifPresent(
                 beer -> {
                     throw BadRequestException.builder()
@@ -46,12 +45,18 @@ public class BeerServiceImpl {
 
         Beer beer = beerMapper.getBeer(beerDto);
         beer = beerRepository.save(beer);
+        log.info("New beer created: {}", beer.toString());
 
         return beerMapper.getBeerDto(beer);
     }
 
     public Optional<BeerDto> getBeer(Long beerId) {
         return beerRepository.findById(beerId)
+                .map(beerMapper::getBeerDto);
+    }
+
+    public Optional<BeerDto> getBeerByName(String beerName) {
+        return beerRepository.findByName(beerName)
                 .map(beerMapper::getBeerDto);
     }
 }
