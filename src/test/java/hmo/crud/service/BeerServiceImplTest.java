@@ -84,6 +84,6 @@ public class BeerServiceImplTest {
         Optional<BeerDto> beerDto = fixture.getBeerByName(beer.getName());
 
         assertTrue(beerDto.isPresent());
-        assertEquals(beerMapper.getBeerDto(beer), null);
+        assertEquals(beerMapper.getBeerDto(beer), beerDto.get());
     }
 }
