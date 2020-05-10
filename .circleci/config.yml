@@ -26,9 +26,9 @@ jobs:
       - checkout
 
       # Docker setup
-      - setup_remote_docker:
+      #- setup_remote_docker:
           # save image layers and reuse unchanged layers on subsequent CircleCI runs
-          docker_layer_caching: true
+      #    docker_layer_caching: true
       - run:
           # use CircleCI environment variables for DockerHub username and password
           name: Login to DockerHub
