@@ -54,4 +54,4 @@ jobs:
       # Build and push docker image to docker hub
       #- run: mvn clean compile jib:build -Dimage=zarinlo/springboot-api:$CIRCLE_BUILD_NUM
       #  CIRCLE_BUILD_NUM: CircleCI build-in environment variable
-      - run: gradle jib image hmo-repository/hmo-crud:$CIRCLE_BUILD_NUM
+      - run: gradle jib --image=hmo-repository/hmo-crud:$CIRCLE_BUILD_NUM
