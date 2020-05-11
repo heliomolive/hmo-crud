@@ -79,6 +79,7 @@ jib {
 	to {
 		image = 'heliomolive/hmo-repository:hmo-crud'
 		auth {
+			// DockerHub username and password provided by environment variables, which must be configured on CircleCI
 			username = System.getenv('DOCKERHUB_USER')
 			password = System.getenv('DOCKERHUB_PASS')
 		}

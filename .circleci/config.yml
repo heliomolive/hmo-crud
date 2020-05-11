@@ -27,12 +27,8 @@ jobs:
 
       # Docker setup
       #- setup_remote_docker:
-          # save image layers and reuse unchanged layers on subsequent CircleCI runs
+          # save image layers and reuse unchanged layers on subsequent CircleCI runs (not available for free account)
       #    docker_layer_caching: true
-      - run:
-          # use CircleCI environment variables for DockerHub username and password
-          name: Login to DockerHub
-          command: echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
 
       # Download and cache dependencies
       - restore_cache:
@@ -52,6 +48,5 @@ jobs:
           path: build/test-results/test
 
       # Build and push docker image to docker hub
-      #- run: mvn clean compile jib:build -Dimage=zarinlo/springboot-api:$CIRCLE_BUILD_NUM
-      #  CIRCLE_BUILD_NUM: CircleCI build-in environment variable
+      #   CIRCLE_BUILD_NUM: CircleCI build-in environment variable
       - run: gradle jib --image=heliomolive/hmo-crud:$CIRCLE_BUILD_NUM
