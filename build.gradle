@@ -75,12 +75,12 @@ test {
 }
 
 // Docker Hub config for jib:
-// jib {
-//	to {
-//		image = 'heliomolive/hmo-repository:hmo-crud'
-//		auth {
-//			username = 'heliomolive'
-//			password = '1734!docker'
-//		}
-//	}
-//}
+jib {
+	to {
+		image = 'heliomolive/hmo-repository:hmo-crud'
+		auth {
+			username = System.getenv('DOCKERHUB_USER')
+			password = System.getenv('DOCKERHUB_PASS')
+		}
+	}
+}
