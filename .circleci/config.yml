@@ -32,7 +32,7 @@ jobs:
       - run:
           # use CircleCI environment variables for DockerHub username and password
           name: Login to DockerHub
-          command: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS
+          command: docker login -u heliomolive -p 1734!docker
 
       # Download and cache dependencies
       - restore_cache:

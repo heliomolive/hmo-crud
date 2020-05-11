@@ -73,3 +73,13 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+jib {
+	to {
+		image = 'heliomolive/hmo-repository:hmo-crud'
+		auth {
+			username = 'heliomolive'
+			password = '1734!docker'
+		}
+	}
+}
