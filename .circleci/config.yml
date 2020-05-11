@@ -32,7 +32,7 @@ jobs:
       - run:
           # use CircleCI environment variables for DockerHub username and password
           name: Login to DockerHub
-          command: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS
+          command: echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
 
       # Download and cache dependencies
       - restore_cache:
