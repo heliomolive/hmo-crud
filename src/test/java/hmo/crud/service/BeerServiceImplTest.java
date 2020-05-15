@@ -2,6 +2,7 @@ package hmo.crud.service;
 
 import hmo.crud.HmoAppMessageLoader;
 import hmo.crud.UserMessage;
+import hmo.crud.domain.dto.BeerDto;
 import hmo.crud.domain.exception.BadRequestException;
 import hmo.crud.domain.mapper.BeerMapper;
 import hmo.crud.repository.BeerRepository;
@@ -18,7 +19,9 @@ import java.util.Optional;
 
 import static hmo.crud.mother.BeerMother.getUnicornWittBeer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -71,5 +74,16 @@ public class BeerServiceImplTest {
         assertEquals(userMessage, e.getUserMessage());
         verify(beerRepository).findByName(beer.getName());
         verify(hmoAppMessageLoader).getUserMessage(UserMessage.BEER_ALREADY_EXISTS);
+    }
+
+    @Test
+    public void getBeerByName() {
+        Beer beer = getUnicornWittBeer(84896L);
+        when(beerRepository.findByName(anyString())).thenReturn(Optional.of(beer));
+
+        Optional<BeerDto> beerDto = fixture.getBeerByName(beer.getName());
+
+        assertTrue(beerDto.isPresent());
+        assertEquals(beerMapper.getBeerDto(beer), beerDto.get());
     }
 }

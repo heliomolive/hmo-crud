@@ -11,6 +11,9 @@ plugins {
 	id 'net.ltgt.apt' version '0.20'
 	id 'net.ltgt.apt-idea' version '0.20'
 	id 'org.flywaydb.flyway' version '6.2.4'
+
+	// JIB: plugin to generate docker images
+	id 'com.google.cloud.tools.jib' version '2.2.0'
 }
 
 flyway {
@@ -69,4 +72,16 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+// Docker Hub config for jib:
+jib {
+	to {
+		image = 'heliomolive/hmo-repository:hmo-crud'
+		auth {
+			// DockerHub username and password provided by environment variables, which must be configured on CircleCI
+			username = System.getenv('DOCKERHUB_USER')
+			password = System.getenv('DOCKERHUB_PASS')
+		}
+	}
 }
