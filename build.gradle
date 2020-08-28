@@ -73,6 +73,9 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+	}
 }
 
 // Docker Hub config for jib:
