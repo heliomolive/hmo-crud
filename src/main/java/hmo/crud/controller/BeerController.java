@@ -10,6 +10,7 @@ import hmo.crud.domain.exception.BadRequestException;
 import hmo.crud.domain.exception.NotFoundException;
 import hmo.crud.domain.mapper.BeerMapper;
 import hmo.crud.service.BeerServiceImpl;
+import io.micrometer.core.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Setter;
@@ -54,6 +55,7 @@ public class BeerController {
                 .build();
     }
 
+    @Timed
     @ApiOperation("Create a new beer")
     @PostMapping(V1 + "/beer")
     @ResponseStatus(HttpStatus.CREATED)
@@ -63,6 +65,7 @@ public class BeerController {
 
     }
 
+    @Timed
     @ApiOperation("Find a beer by its ID")
     @GetMapping(V1 + "/beer/{beerUid}")
     @ResponseStatus(HttpStatus.OK)
