@@ -65,7 +65,7 @@ public class BeerController {
 
     }
 
-    @Timed
+    @Timed(value = "beer.get.timed")
     @ApiOperation("Find a beer by its ID")
     @GetMapping(V1 + "/beer/{beerUid}")
     @ResponseStatus(HttpStatus.OK)

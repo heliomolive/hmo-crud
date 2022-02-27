@@ -14,9 +14,9 @@ import org.springframework.context.annotation.PropertySources;
 })
 public class HmoAppConfig {
 
-    @Bean
-    public TimedAspect timedAspect(MeterRegistry registry) {
-        return new TimedAspect(registry);
-    }
+//    @Bean
+//    public TimedAspect timedAspect(MeterRegistry registry) {
+//        return new TimedAspect(registry);
+//    }
 
 }
