@@ -1,20 +1,25 @@
 package hmo.crud.metrics;
 
-import hmo.crud.controller.BeerController;
 import hmo.crud.controller.request.CreateBeerRequest;
+import hmo.crud.controller.response.CreateBeerResponse;
+import hmo.crud.controller.response.GetBeerResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 @Log4j2
 @Component
 public class MetricsGenerator {
 
-    @Autowired
-    private BeerController beerController;
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    private static final String BEER_V1_URL = "http://localhost:8080/v1/beer";
 
     private Random random = new Random();
     private String[] suggestion = {
@@ -26,17 +31,24 @@ public class MetricsGenerator {
         String beer = suggestion[random.nextInt(suggestion.length)];
         log.info("Trying to create new beer "+beer);
 
-        beerController.createBeer(new CreateBeerRequest(beer));
+        log.info(
+                restTemplate.postForEntity(BEER_V1_URL, new CreateBeerRequest(beer), CreateBeerResponse.class)
+        );
     }
 
     @Scheduled(fixedRate = 3*1000) //each 3 sec
     private void generateMetricsForGetBeerById() {
-        beerController.getBeer(1L + random.nextInt(suggestion.length));
+        int beerId = 1 + random.nextInt(suggestion.length);
+        log.info(
+                restTemplate.getForEntity(BEER_V1_URL + "/" + beerId, GetBeerResponse.class)
+        );
     }
 
     @Scheduled(fixedRate = 4*1000) //each 4 sec
     private void generateMetricsForGetBeerByName() {
         String beer = suggestion[random.nextInt(suggestion.length)];
-        beerController.getBeerByName(beer);
+        log.info(
+                restTemplate.getForEntity(BEER_V1_URL+"?beerName="+URLEncoder.encode(beer, StandardCharsets.UTF_8), GetBeerResponse.class)
+        );
     }
 }
