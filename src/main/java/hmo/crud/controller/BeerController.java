@@ -17,7 +17,6 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +27,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
-import java.util.Random;
 
 import static hmo.crud.UserMessage.BEER_NOT_FOUND;
 import static java.lang.String.format;
@@ -51,11 +48,6 @@ public class BeerController {
 
     @Autowired
     private BeerMapper beerMapper;
-
-    private Random random = new Random();
-    private String[] suggestion = {
-            "Magic Trap", "Interstellar", "Unicorn Witbier", "Unicor Session IPA", "Abroba", "Easy IPA", "Guinness",
-            "Opa Pilson", "Dama QI", "Imperio Lager", "Martina Witbier", "Martina IPA", "Barco Thai", "Serena Session"};
 
     @GetMapping("/test-get")
     public HmoResponse testResponse() {
@@ -102,22 +94,4 @@ public class BeerController {
         return  response;
     }
 
-    @Scheduled(fixedRate = 3*60*1000) //each 3 min
-    private void generateMetricsForPostBeer() {
-        String beer = suggestion[random.nextInt(suggestion.length)];
-        log.info("Trying to create new beer "+beer);
-
-        createBeer(new CreateBeerRequest(beer));
-    }
-
-    @Scheduled(fixedRate = 3*1000) //each 3 sec
-    private void generateMetricsForGetBeerById() {
-        getBeer(1L + random.nextInt(suggestion.length));
-    }
-
-    @Scheduled(fixedRate = 4*1000) //each 4 sec
-    private void generateMetricsForGetBeerByName() {
-        String beer = suggestion[random.nextInt(suggestion.length)];
-        getBeerByName(beer);
-    }
 }
