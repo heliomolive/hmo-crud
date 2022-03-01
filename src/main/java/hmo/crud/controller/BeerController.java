@@ -74,14 +74,6 @@ public class BeerController {
         return beerMapper.getCreateBeerResponse(beerDto);
     }
 
-    @Scheduled(fixedRate = 3*60*1000) //each 3 min
-    private void generateMetricsForPostBeer() {
-        String beer = suggestion[random.nextInt(suggestion.length)];
-        log.info("Trying to create new beer "+beer);
-
-        createBeer(new CreateBeerRequest(beer));
-    }
-
     @Timed("beer.find-by-id")
     @ApiOperation("Find a beer by its ID")
     @GetMapping(V1 + "/beer/{beerUid}")
@@ -96,11 +88,6 @@ public class BeerController {
         return  response;
     }
 
-    @Scheduled(fixedRate = 3*1000) //each 3 sec
-    private void generateMetricsForGetBeerById() {
-        getBeer(1L + random.nextInt(suggestion.length));
-    }
-
     @Timed("beer.find-by-name")
     @ApiOperation("Find a beer by its name")
     @GetMapping(V1 + "/beer")
@@ -108,11 +95,24 @@ public class BeerController {
     public GetBeerResponse getBeerByName(@RequestParam String beerName) {
         BeerDto beerDto = beerService.getBeerByName(beerName).orElseThrow(() ->
                 NotFoundException.builder()
-                        .developerMessage(format("Beer [%d] not found", beerName))
+                        .developerMessage(format("Beer [%s] not found", beerName))
                         .userMessage(hmoAppMessageLoader.getUserMessage(BEER_NOT_FOUND))
                         .build() );
         GetBeerResponse response = beerMapper.getGetBeerResponse(beerDto);
         return  response;
+    }
+
+    @Scheduled(fixedRate = 3*60*1000) //each 3 min
+    private void generateMetricsForPostBeer() {
+        String beer = suggestion[random.nextInt(suggestion.length)];
+        log.info("Trying to create new beer "+beer);
+
+        createBeer(new CreateBeerRequest(beer));
+    }
+
+    @Scheduled(fixedRate = 3*1000) //each 3 sec
+    private void generateMetricsForGetBeerById() {
+        getBeer(1L + random.nextInt(suggestion.length));
     }
 
     @Scheduled(fixedRate = 4*1000) //each 4 sec
