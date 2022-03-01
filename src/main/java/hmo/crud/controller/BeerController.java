@@ -55,7 +55,7 @@ public class BeerController {
                 .build();
     }
 
-    @Timed
+    @Timed("beer.create")
     @ApiOperation("Create a new beer")
     @PostMapping(V1 + "/beer")
     @ResponseStatus(HttpStatus.CREATED)
@@ -65,7 +65,7 @@ public class BeerController {
 
     }
 
-    @Timed(value = "beer.get.timed")
+    @Timed("beer.find-by-id")
     @ApiOperation("Find a beer by its ID")
     @GetMapping(V1 + "/beer/{beerUid}")
     @ResponseStatus(HttpStatus.OK)
@@ -79,7 +79,8 @@ public class BeerController {
         return  response;
     }
 
-    @ApiOperation("Find a beer by its ID")
+    @Timed("beer.find-by-name")
+    @ApiOperation("Find a beer by its name")
     @GetMapping(V1 + "/beer")
     @ResponseStatus(HttpStatus.OK)
     public GetBeerResponse getBeerByName(@RequestParam String beerName) {
